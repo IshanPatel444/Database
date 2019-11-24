@@ -1,0 +1,442 @@
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Date;
+import java.sql.Connection;
+import java.sql.Statement;
+
+/*
+ * Servlet implementation class DatabaseServerlet
+ */
+
+public class IntializeData {
+	private static Connection connect = null;
+	private static Statement statement = null;
+	private static PreparedStatement preparedStatement = null; 
+	private static Date date = new Date();
+
+	public static void CreateTriggerForItem(String userID) {
+		try {
+			date = new java.sql.Date(date.getTime()); 
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+			+ "user=john&password=pass1234");
+			statement = connect.createStatement();
+			
+			statement.executeUpdate("DROP TRIGGER IF EXISTS `projectdb`.`item_BEFORE_INSERT`");
+			
+			
+			String trigger = "CREATE\r\n" + 
+				"TRIGGER `projectdb`.`item_BEFORE_INSERT`\r\n" + 
+				"BEFORE INSERT ON `projectdb`.`item`\r\n" + 
+				"FOR EACH ROW\r\n" + 
+				"BEGIN\r\n" + 
+				"IF \r\n" + 
+				"(select count(iditem) from projectdb.item where post_date = \""
+				 + (java.sql.Date) date
+				 + "\" and user_id="
+				 + userID
+				 + ") > 4\r\n" + 
+				"          THEN\r\n" + 
+				"               SIGNAL SQLSTATE '45000'\r\n" + 
+				"                    SET MESSAGE_TEXT = 'Cannot add any more item';\r\n" + 
+				"          END IF;\r\n" + 
+				"END";
+			
+			statement.executeUpdate(trigger);
+			
+			System.out.println("Trigger Created Successfully for Item");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+
+	public static void CreateTriggerForReview(String userID) {
+		try {
+			date = new java.sql.Date(date.getTime()); 
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+			+ "user=john&password=pass1234");
+			statement = connect.createStatement();
+			
+			statement.executeUpdate("DROP TRIGGER IF EXISTS `projectdb`.`review_item_BEFORE_INSERT`");
+			
+			
+			String trigger = "CREATE TRIGGER `review_item_BEFORE_INSERT` BEFORE INSERT ON `review_item` FOR EACH ROW BEGIN\r\n" + 
+					"IF (select count(id_review_item) from projectdb.review_item where post_date = \""
+					 + (java.sql.Date) date
+					 + "\" and user_id="
+					 + userID
+					 + ") > 4\r\n" + 
+					"          THEN\r\n" + 
+					"               SIGNAL SQLSTATE '45000'\r\n" + 
+					"                    SET MESSAGE_TEXT = 'Cannot add any more Review';\r\n" + 
+					"          END IF;\r\n" + 
+					"END";
+			
+			statement.executeUpdate(trigger);
+			
+			System.out.println("Trigger Created Successfully for Review");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+	
+	public static void CreateFunctionIsReviewValid() {
+		try {
+			date = new java.sql.Date(date.getTime()); 
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+					+ "user=john&password=pass1234");
+			statement = connect.createStatement();
+
+			statement.executeUpdate("DROP function IF EXISTS `is_review_valid`");
+
+
+			String function = "CREATE FUNCTION `is_review_valid`(item_id int) RETURNS varchar(30)\r\n" + 
+					"    READS SQL DATA\r\n" + 
+					"    DETERMINISTIC\r\n" + 
+					"BEGIN\r\n" + 
+					"	DECLARE userID VARCHAR(20);\r\n" + 
+					"	SELECT user_id into userID FROM projectdb.item where iditem = item_id;\r\n" + 
+					"\r\n" + 
+					"RETURN userID;\r\n" + 
+					"END";
+
+			statement.executeUpdate(function);
+
+			System.out.println("Function Created Successfully for Review");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+
+	public static void CreateProcedureAddReview() {
+		try {
+			date = new java.sql.Date(date.getTime()); 
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+					+ "user=john&password=pass1234");
+			statement = connect.createStatement();
+
+			statement.executeUpdate("DROP procedure IF EXISTS `add_review_SP`");
+
+
+			String function = "CREATE PROCEDURE `add_review_SP`(in post_date date, \r\n" + 
+					"								in user_id varchar(30),\r\n" + 
+					"                                in item_id int,\r\n" + 
+					"                                in review_description varchar(255),\r\n" + 
+					"                                in review_rating varchar (10),\r\n" + 
+					"                                out result int)\r\n" + 
+					"BEGIN\r\n" + 
+					"	if (projectdb.is_review_valid(item_id) <> user_id) then\r\n" + 
+					"		INSERT INTO `projectdb`.`review_item`\r\n" + 
+					"				( `post_date`, `user_id`, `item_id`, `review_description`, `review_rating`)\r\n" + 
+					"			VALUES\r\n" + 
+					"				(post_date, user_id, item_id, review_description, review_rating);\r\n" + 
+					"		set result = 1;\r\n" + 
+					"	else \r\n" + 
+					"		set result = 0;\r\n" + 
+					"	end if;\r\n" + 
+					"END";
+
+			statement.executeUpdate(function);
+
+			System.out.println("Procedure Created Successfully for Item Review");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+	
+	public static void AddDataToReview() {
+		try {
+			preparedStatement = connect.prepareStatement("INSERT INTO review (review_rating) values(?)");
+			preparedStatement.setString(1,"Excellent");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("INSERT INTO review (review_rating) values(?)");
+			preparedStatement.setString(1,"Good");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("INSERT INTO review (review_rating) values(?)");
+			preparedStatement.setString(1,"Fair");
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("INSERT INTO review (review_rating) values(?)");
+			preparedStatement.setString(1,"Poor");
+			preparedStatement.executeUpdate();
+			
+			System.out.println("Data Inserted in Review Successfully");
+
+		} catch (Exception e) {
+			System.out.print(e);
+		}	
+		
+	}
+	
+	public static void AddDataToUser() {
+		try {
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"1");
+			preparedStatement.setString(2,"11");
+			preparedStatement.setString(3,"Ishan");
+			preparedStatement.setString(4,"Patel");
+			preparedStatement.setString(5,"Patelishan@gmail.com");
+			preparedStatement.setInt(6, 22);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"2");
+			preparedStatement.setString(2,"22");
+			preparedStatement.setString(3,"Siddh");
+			preparedStatement.setString(4,"vyas");
+			preparedStatement.setString(5,"vyasSiddh@gmail.com");
+			preparedStatement.setInt(6, 23);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"3");
+			preparedStatement.setString(2,"33");
+			preparedStatement.setString(3,"Akruti");
+			preparedStatement.setString(4,"jani");
+			preparedStatement.setString(5,"janiAkruti@gmail.com");
+			preparedStatement.setInt(6, 21);
+			preparedStatement.setString(7,"f");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"4");
+			preparedStatement.setString(2,"44");
+			preparedStatement.setString(3,"Jigar");
+			preparedStatement.setString(4,"thakur");
+			preparedStatement.setString(5,"thakurJigar@gmail.com");
+			preparedStatement.setInt(6, 24);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"5");
+			preparedStatement.setString(2,"55");
+			preparedStatement.setString(3,"Kishan");
+			preparedStatement.setString(4,"rabari");
+			preparedStatement.setString(5,"rabariKishan@gmail.com");
+			preparedStatement.setInt(6, 23);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"6");
+			preparedStatement.setString(2,"66");
+			preparedStatement.setString(3,"Nirav");
+			preparedStatement.setString(4,"bharvad");
+			preparedStatement.setString(5,"bharvadNirav@gmail.com");
+			preparedStatement.setInt(6, 25);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"7");
+			preparedStatement.setString(2,"77");
+			preparedStatement.setString(3,"Nisharg");
+			preparedStatement.setString(4,"pandit");
+			preparedStatement.setString(5,"PanditNisharg@gmail.com");
+			preparedStatement.setInt(6, 24);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"8");
+			preparedStatement.setString(2,"88");
+			preparedStatement.setString(3,"Jahnvi");
+			preparedStatement.setString(4,"pandya");
+			preparedStatement.setString(5,"PandyaJahnvi@gmail.com");
+			preparedStatement.setInt(6, 20);
+			preparedStatement.setString(7,"f");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"9");
+			preparedStatement.setString(2,"99");
+			preparedStatement.setString(3,"Love");
+			preparedStatement.setString(4,"darji");
+			preparedStatement.setString(5,"darjiLove@gmail.com");
+			preparedStatement.setInt(6, 26);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"10");
+			preparedStatement.setString(2,"101");
+			preparedStatement.setString(3,"Mehul");
+			preparedStatement.setString(4,"purohit");
+			preparedStatement.setString(5,"PurohitMehul@gmail.com");
+			preparedStatement.setInt(6, 25);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+		
+			System.out.println("Data Inserted in Users Successfully");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+	
+	public static void AddDataToCategory() {
+		try {
+			preparedStatement = connect.prepareStatement("insert into projectdb.category (category_description) values (?)");
+			preparedStatement.setString(1,"phone");
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("insert into projectdb.category (category_description) values (?)");
+			preparedStatement.setString(1,"consoles");
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("insert into projectdb.category (category_description) values (?)");
+			preparedStatement.setString(1,"electronic");
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("insert into projectdb.category (category_description) values (?)");
+			preparedStatement.setString(1,"laptop");
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("insert into projectdb.category (category_description) values (?)");
+			preparedStatement.setString(1,"desktop");
+			preparedStatement.executeUpdate();
+
+			System.out.println("Data Inserted in Category Successfully");
+		} catch (Exception e) {
+			System.out.print(e);
+		}		
+	}
+	
+	public static void IntializeDB() {
+		try {
+			date = new java.sql.Date(date.getTime()); 
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+			+ "user=john&password=pass1234");
+			
+			System.out.println("Intialize database");
+			
+			statement = connect.createStatement();
+			statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 0");
+			statement.executeUpdate("DROP TABLE IF EXISTS item");
+			statement.executeUpdate("DROP TABLE IF EXISTS `projectdb`.`category`");
+			statement.executeUpdate("DROP TABLE IF EXISTS `projectdb`.`category_item`");
+			statement.executeUpdate("DROP TABLE IF EXISTS USERS");
+			statement.executeUpdate("DROP TABLE IF EXISTS REVIEW");
+			statement.executeUpdate("DROP TABLE IF EXISTS REVIEW_ITEM");
+			statement.executeUpdate("DROP TABLE IF EXISTS favorite_seller");
+			statement.executeUpdate("DROP procedure IF EXISTS add_review_SP");
+			statement.executeUpdate("DROP function IF EXISTS is_review_valid");
+			statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 1");
+			
+			String Users = "CREATE TABLE IF NOT EXISTS `projectdb`.`users` (\r\n" + 
+					"  `UserID` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `PASS` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `FNAME` VARCHAR(20) NOT NULL,\r\n" + 
+					"  `LNAME` VARCHAR(20) NOT NULL,\r\n" + 
+					"  `Email` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `gender` VARCHAR(20) NOT NULL,\r\n" + 
+					"  `age` INT(20) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`UserID`));";
+			
+			statement.executeUpdate(Users);
+			
+			String favorite_seller = "CREATE TABLE IF NOT EXISTS `projectdb`.`favorite_seller` (\r\n" + 
+					"  `user_favorite` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `user_id` VARCHAR(30) NOT NULL,\r\n" + 
+					"  UNIQUE INDEX `userFavorite_userId` (`user_favorite` ASC, `user_id` ASC) VISIBLE,\r\n" + 
+					"  INDEX `user_id_fav_seller_idx` (`user_favorite` ASC) VISIBLE,\r\n" + 
+					"  INDEX `user_id_seller_idx` (`user_id` ASC) VISIBLE,\r\n" + 
+					"  CONSTRAINT `user_id_fav_seller`\r\n" + 
+					"    FOREIGN KEY (`user_favorite`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`),\r\n" + 
+					"  CONSTRAINT `user_id_seller`\r\n" + 
+					"    FOREIGN KEY (`user_id`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`));";
+			
+			statement.executeUpdate(favorite_seller);
+					
+					
+			String item = "CREATE TABLE IF NOT EXISTS `projectdb`.`item` (\r\n" + 
+					"  `iditem` INT(11) NOT NULL AUTO_INCREMENT,\r\n" + 
+					"  `title` VARCHAR(45) NOT NULL,\r\n" + 
+					"  `description` VARCHAR(45) NOT NULL,\r\n" + 
+					"  `post_date` DATE NOT NULL,\r\n" + 
+					"  `price` DOUBLE NOT NULL,\r\n" + 
+					"  `user_id` VARCHAR(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`iditem`),\r\n" + 
+					"  UNIQUE INDEX `sqlUniqueConstraint` (`title` ASC, `user_id` ASC) VISIBLE,\r\n" + 
+					"  INDEX `userID` (`user_id` ASC) VISIBLE,\r\n" + 
+					"  CONSTRAINT `userID`\r\n" + 
+					"    FOREIGN KEY (`user_id`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`));";
+			
+			statement.executeUpdate(item);
+			
+			String category = "CREATE TABLE IF NOT EXISTS `projectdb`.`category` (\r\n" + 
+					"  `category_description` VARCHAR(45) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`category_description`));";
+			
+			statement.executeUpdate(category);
+			
+			String category_item = "CREATE TABLE IF NOT EXISTS `projectdb`.`category_item` (\r\n" + 
+					"  `category_description` VARCHAR(45) NOT NULL,\r\n" + 
+					"  `item_ID` INT(11) NOT NULL,\r\n" + 
+					"  INDEX `item_ID` (`item_ID` ASC) VISIBLE,\r\n" + 
+					"  INDEX `category_description` (`category_description` ASC) VISIBLE,\r\n" + 
+					"  CONSTRAINT `category_description`\r\n" + 
+					"    FOREIGN KEY (`category_description`)\r\n" + 
+					"    REFERENCES `projectdb`.`category` (`category_description`),\r\n" + 
+					"  CONSTRAINT `item_ID`\r\n" + 
+					"    FOREIGN KEY (`item_ID`)\r\n" + 
+					"    REFERENCES `projectdb`.`item` (`iditem`));";
+	
+			statement.executeUpdate(category_item);
+			
+			String review = "CREATE TABLE IF NOT EXISTS `projectdb`.`review` (\r\n" + 
+					"  `review_rating` VARCHAR(30) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`review_rating`));";
+
+			statement.executeUpdate(review);
+			
+			String review_item = "CREATE TABLE IF NOT EXISTS `projectdb`.`review_item` (\r\n" + 
+					"  `id_review_item` INT(11) NOT NULL AUTO_INCREMENT,\r\n" + 
+					"  `post_date` DATE NOT NULL,\r\n" + 
+					"  `user_id` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `item_id` INT(11) NOT NULL,\r\n" + 
+					"  `review_description` VARCHAR(255) NOT NULL,\r\n" + 
+					"  `review_rating` VARCHAR(30) NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`id_review_item`),\r\n" + 
+					"  INDEX `user_id_idx` (`user_id` ASC) VISIBLE,\r\n" + 
+					"  INDEX `item_id_idx` (`item_id` ASC) VISIBLE,\r\n" + 
+					"  INDEX `review_rating_idx` (`review_rating` ASC) VISIBLE,\r\n" + 
+					"  CONSTRAINT `item_id_REVIEW_ITEM`\r\n" + 
+					"    FOREIGN KEY (`item_id`)\r\n" + 
+					"    REFERENCES `projectdb`.`item` (`iditem`),\r\n" + 
+					"  CONSTRAINT `review_rating_REVIEW_ITEM`\r\n" + 
+					"    FOREIGN KEY (`review_rating`)\r\n" + 
+					"    REFERENCES `projectdb`.`review` (`review_rating`),\r\n" + 
+					"  CONSTRAINT `user_id_REVIEW_ITEM`\r\n" + 
+					"    FOREIGN KEY (`user_id`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`));";
+			
+			statement.executeUpdate(review_item);
+			
+			AddDataToCategory();
+			AddDataToUser();
+			AddDataToReview();
+			CreateFunctionIsReviewValid();
+			CreateProcedureAddReview();
+			
+		} catch (Exception e) {
+			System.out.print(e);
+		}
+	}
+}

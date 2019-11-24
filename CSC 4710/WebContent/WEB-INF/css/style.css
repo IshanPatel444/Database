@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body  {
+	font-family: 'Roboto', sans-serif;
+	background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%)
+		no-repeat center center fixed;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff',
+		endColorstr='#a1dbff', GradientType=0);
+}
+
+.main-section {
+	margin: 0 auto;
+	margin-top: 130px;
+	padding: 0;
+}
+
+.modal-content{
+    background-color: #3b4652;
+    opacity: .80;
+    padding: 0 18px;
+    box-shadow: 0px 0px 3px #848484;
+}
+    
+.form-group {
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+
+.form-group input {
+    height: 42px;
+    border-radius: 5px;
+    border:  0;
+    padding: 10px;
+    padding-left: 15px;
+    font-size: 22px;
+}
+
+.svg-inline--fa {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.new-user {
+    margin-bottom:20px;
+    padding: 0 20px 20px;
+}
+
+.new-user a {
+    color: #c2fbfe
+}
