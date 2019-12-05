@@ -25,7 +25,6 @@ public class IntializeData {
 			
 			statement.executeUpdate("DROP TRIGGER IF EXISTS `projectdb`.`item_BEFORE_INSERT`");
 			
-			
 			String trigger = "CREATE\r\n" + 
 				"TRIGGER `projectdb`.`item_BEFORE_INSERT`\r\n" + 
 				"BEFORE INSERT ON `projectdb`.`item`\r\n" + 
@@ -175,6 +174,132 @@ public class IntializeData {
 			System.out.print(e);
 		}	
 		
+	}
+	
+	public static void AddItem()
+	{
+		try {
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, "Sony Head-Phone");
+			preparedStatement.setString(2, "Brand New Head-Phone");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 99);
+			preparedStatement.setString(5, "1");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, "LG LED 13.3 inch. TV");
+			preparedStatement.setString(2, "Used TV");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 499);
+			preparedStatement.setString(5, "2");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, " beats Power-bank");
+			preparedStatement.setString(2, "Brand New Power-Bank in good price.");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 25);
+			preparedStatement.setString(5, "2");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, "Asus Laptop 16inch.");
+			preparedStatement.setString(2, "Brand New Gamiong Laptop.");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 999);
+			preparedStatement.setString(5, "1");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, "HP Spectre");
+			preparedStatement.setString(2, "Used Spectre laptop 13.3 inch.");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 699);
+			preparedStatement.setString(5, "3");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id ) values(?,?,?,?,?)");
+			preparedStatement.setString(1, "Beats");
+			preparedStatement.setString(2, "pink Head_Phone");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 129);
+			preparedStatement.setString(5, "2");
+			preparedStatement.executeUpdate();
+			
+			// Category Item
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "electronic");
+			preparedStatement.setInt(2, 1);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "desktop");
+			preparedStatement.setInt(2, 2);
+			preparedStatement.executeUpdate();
+
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "consoles");
+			preparedStatement.setInt(2, 3);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "phone");
+			preparedStatement.setInt(2, 4);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "electronic");
+			preparedStatement.setInt(2, 5);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "phone");
+			preparedStatement.setInt(2, 6);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "electronic");
+			preparedStatement.setInt(2, 6);
+			preparedStatement.executeUpdate();
+
+			System.out.println("Data Inserted in Category Successfully");
+		}
+		
+		catch (Exception e) {
+			System.out.print(e);
+		}		
 	}
 	
 	public static void AddDataToUser() {
@@ -428,12 +553,23 @@ public class IntializeData {
 					"    REFERENCES `projectdb`.`users` (`UserID`));";
 			
 			statement.executeUpdate(review_item);
+			String Add_Item = "CREATE TABLE IF NOT EXISTS `projectdb`.`item` (\r\n" + 
+					"  `iditem` INT(11) NOT NULL AUTO_INCREMENT,\r\n" +
+					"  `title` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `description` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `post_date` DATE NOT NULL,\r\n" + 
+					"  `user_id` VARCHAR(30) NOT NULL,\r\n"+ 
+					"  `price` DOUBLE NOT NULL,\r\n" + 
+					"  PRIMARY KEY (`iditem`));";
+					
+			statement.executeUpdate(Add_Item);
 			
 			AddDataToCategory();
 			AddDataToUser();
 			AddDataToReview();
 			CreateFunctionIsReviewValid();
 			CreateProcedureAddReview();
+			AddItem();
 			
 		} catch (Exception e) {
 			System.out.print(e);
