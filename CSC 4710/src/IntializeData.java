@@ -953,6 +953,16 @@ public class IntializeData {
 	public static void AddDataToUser() {
 		try {
 			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"root");
+			preparedStatement.setString(2,"pass1234");
+			preparedStatement.setString(3,"Admin");
+			preparedStatement.setString(4,"Root");
+			preparedStatement.setString(5,"admin@admin.com");
+			preparedStatement.setInt(6, 22);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1,"1");
 			preparedStatement.setString(2,"11");
 			preparedStatement.setString(3,"Ishan");

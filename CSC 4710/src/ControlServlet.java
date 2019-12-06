@@ -188,7 +188,7 @@ public class ControlServlet extends HttpServlet {
     	List<User> userList = part6_DB.userList(list);
     	System.out.println(Arrays.toString(userList.toArray()));
     	request.setAttribute("userList", userList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_6.jsp");       
 		dispatcher.forward(request, response);
     	}
     
@@ -218,7 +218,7 @@ public class ControlServlet extends HttpServlet {
     	List<User> userList = part9_DB.userList(list);
     	System.out.println(Arrays.toString(userList.toArray()));
     	request.setAttribute("userList", userList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_9.jsp");       
 		dispatcher.forward(request, response);
     	}
 
@@ -228,7 +228,7 @@ public class ControlServlet extends HttpServlet {
     	List<User> userList = part8_DB.userList(list);
     	System.out.println(Arrays.toString(userList.toArray()));
     	request.setAttribute("userList", userList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_8.jsp");       
 		dispatcher.forward(request, response);
     	}
 

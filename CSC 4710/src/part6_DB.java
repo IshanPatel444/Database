@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class part6_DB {
 	private static Connection connect = null;
@@ -40,11 +41,15 @@ public class part6_DB {
         	System.out.println(list);
 		}catch (Exception e) {
 			System.out.println(e);
-		}
+		}		
 		
-		list.removeAll(list1);
-		System.out.print("sdfgsdf");
-		return list;
+		List<String> union = new ArrayList<String>(list1);
+		union.addAll(list);
+		List<String> intersection = new ArrayList<String>(list1);
+		intersection.retainAll(list);
+		union.removeAll(intersection);
+		
+		return union;
 	}
 
 	public static List<User> userList(List<String> list){
@@ -65,8 +70,6 @@ public class part6_DB {
 					ResultSet result = statement.executeQuery(qury);
 
 					while(result.next()) {
-						System.out.print("in Try");
-						
 						userlist.add(new User(list.get(i), result.getString("FNAME"), result.getString("LNAME")));
 					}
 					statement.close();
