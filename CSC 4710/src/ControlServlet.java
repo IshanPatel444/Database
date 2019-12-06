@@ -100,6 +100,10 @@ public class ControlServlet extends HttpServlet {
         		part_4DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/part_6":
+        		part_6DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
         	case "/part_3":
         		part_3DB(request, response);
             	System.out.println("Updated Fav List");
@@ -110,6 +114,13 @@ public class ControlServlet extends HttpServlet {
         throw new ServletException(ex);
     }
 }
+    private void part_6DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_6.jsp");       
+		dispatcher.forward(request, response);
+    	}
+
+    
     private void part_3DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	String search = request.getParameter("search");
