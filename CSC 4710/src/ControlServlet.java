@@ -136,6 +136,10 @@ public class ControlServlet extends HttpServlet {
         		part_10DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/removeItemCart":
+        		part_10DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
 
         	}
         } catch (SQLException ex) {

@@ -21,7 +21,6 @@
 	<div class="col-xl-5 main-section">
 		<div class="modal-content">
 			<h1 style="align-self: center; color: #c2fbfe;">Welcome</h1>
-			<form class="col-5" style="align-self: center;">
 			
 						<table class="table table-dark table-hover">
 					<thead>
@@ -29,6 +28,7 @@
 							<th scope="col">Title</th>
 							<th scope="col">Description</th>
 							<th scope="col">Price</th>
+							<th scope="col">Remove</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,6 +37,15 @@
 					<td>${post.getTitle()}</td>
 					<td>${post.getDescription()}</td>
 					<td>$ ${post.getPrice()}</td>
+								<td>
+						<form action = "removeItemCart" method="post">
+						<div class="form-group col-xs-6">
+						<button type="submit" name= "itemID" class="btn" value="${post.getIditem()}"
+						style="width: 100%;">Remove</button>
+					</div>
+						</form>
+					</td>
+		
 				</tr>
 			</c:forEach>
 					</tbody>
