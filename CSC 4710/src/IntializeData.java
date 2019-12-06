@@ -198,7 +198,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "Sony Head-Phone");
 			preparedStatement.setString(2, "Brand New Head-Phone");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 99);
 			preparedStatement.setString(5, "1");
 			preparedStatement.setInt(6, 1);
