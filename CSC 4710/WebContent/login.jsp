@@ -53,12 +53,9 @@
         </button>
       </form>
 
-<div class="col-12 new-user" style="
-    margin-top: 20px;
-">
+<div class="col-12 new-user" style="margin-top: 20px;">
         <a href="register.jsp"> New User</a>
       </div>
-
     </div> <!-- End of Modal Content -->
   </div>
 </div>

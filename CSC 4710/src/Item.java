@@ -9,6 +9,7 @@ public class Item {
 	protected Date post_date;
 	protected Double price;
 	protected String user_id;
+	protected boolean isFav = false;
 	protected List<String> categoryList;
 	
 	public String getCategoryList() {
@@ -56,6 +57,7 @@ public class Item {
 	public int getIditem() {
 		return iditem;
 	}
+	
 	public void setIditem(int iditem) {
 		this.iditem = iditem;
 	}
@@ -89,4 +91,13 @@ public class Item {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+
+	public boolean isFav() {
+		return isFav;
+	}
+
+	public void setFav(boolean isFav) {
+		this.isFav = isFav;
+	}
+	
 }

@@ -69,6 +69,8 @@
 							<th scope="col">Posted Date</th>
 							<th scope="col">Price</th>
 							<th scope="col">Item listed in Categories</th>
+							<th scope="col"> Review </th>
+							<th scope="col"> Favourite </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -85,16 +87,42 @@
 						<button type="submit" name= "itemID" class="btn" value="${post.getIditem()}"
 							style="width: 100%;">Review</button>
 					</div>
-							
 						</form>
 					</td>
+					<td style="text-align: center;">
+					<input class="form-check-input" type="checkbox"
+									name="ck_fav" id=${post.getIditem() }
+									value=${post.getIditem() } /> <script
+										type="text/javascript">
+										var message = '<c:out value="${post.isFav() }"/>';
+										if(message=='true')
+											document.getElementById(${post.getIditem()}).checked = true;
+									</script>
+									</td>
+					<td>${post.isFav() }</td>
 				</tr>
 			</c:forEach>
 					</tbody>
 				</table>
+		<form action="FavItem" method="post" class="col-12">
+					<input type="hidden" id="hiddenField" name="hiddenField" /> <input
+						type="submit" class="btn" value="submit" onclick="getCK()">
+				</form>
+      </div>
+    </div> <!-- End of Modal Content -->
 		
-		</div>
-	</div>
 </body>
+<script type="text/javascript">
+	
+	function getCK(){
+		var usersCK = document.getElementsByName('ck_fav');
+		var selectedUser = [];
+		
+		for (var i = 0; i < usersCK.length; i++) {
+			if(usersCK[i].checked)
+				selectedUser.push(usersCK[i].value);
+		}
 
+		document.getElementById("hiddenField").value = selectedUser;}
+	</script>
 </html>

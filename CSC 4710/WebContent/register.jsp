@@ -39,6 +39,11 @@
 
 					<div class="form-group">
 						<input type="text" class="form-control"
+							placeholder="Confirm Password" name="confirm_password">
+					</div>
+
+					<div class="form-group">
+						<input type="text" class="form-control"
 							placeholder="Enter First Name" name="first_name">
 					</div>
 
