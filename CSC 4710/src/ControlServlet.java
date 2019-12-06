@@ -90,10 +90,29 @@ public class ControlServlet extends HttpServlet {
         		favSellerList(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/FavItem":
+        		favItemList(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
         	}
         } catch (SQLException ex) {
         throw new ServletException(ex);
     }
+}
+    private void favItemList(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String result = "error";
+    	String user_id = LogInUserData.getUserID();
+		String ck_favItem[] = request.getParameterValues("hiddenField");
+		
+		if(ck_favItem != null && ck_favItem.length!=0) {
+			if(SearchDataInCategory.updateFavItem(ck_favItem, user_id))
+				result = "success";
+		}
+		
+		request.setAttribute("result", result);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("search.jsp");       
+        dispatcher.forward(request, response);		
 }
     
     private void favSellerList(HttpServletRequest request, HttpServletResponse response)
@@ -106,7 +125,6 @@ public class ControlServlet extends HttpServlet {
 			if(FavSellerData.updateFavList(ck_favUser, user_id))
 				result = "success";
 		}
-		
 		
 		List<User> AllUserID = FavSellerData.SellerList();
     	List<User> FavUserList = FavSellerData.FavSellerList(user_id);
@@ -216,12 +234,16 @@ public class ControlServlet extends HttpServlet {
 		System.out.print("you have been linked.");
 		String user_id = request.getParameter("UserID");
 		String password = request.getParameter("password");
+		String cpassword = request.getParameter("confirm_password");
 		String first_name = request.getParameter("first_name");
 		String last_name = request.getParameter("last_name");
 		String email = request.getParameter("email");
 		int age = Integer.parseInt(request.getParameter("age"));
 		String gender = request.getParameter("gender");
-		RegisterData.RegisterDB(user_id, password, first_name, last_name, email, age, gender);
+		if(cpassword.equals(password))
+			RegisterData.RegisterDB(user_id, password, first_name, last_name, email, age, gender);
+		else
+			System.out.println("Password is not matching");
 		request.setAttribute("RegisterDB", RegisterDB);
 				
 		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
@@ -239,7 +261,6 @@ public class ControlServlet extends HttpServlet {
 		String categories[] = request.getParameterValues("ck_category");
 		
 		System.out.print(categories.toString());
-		
 		
 		if(AddItemData.AddItemDB(title, description, Double.valueOf(price))) {
 			AddItemCategoryData.AddItemCategoryDB(title, categories);

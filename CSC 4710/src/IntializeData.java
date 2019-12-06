@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.util.Date;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 /*
  * Servlet implementation class DatabaseServerlet
@@ -14,6 +15,17 @@ public class IntializeData {
 	private static PreparedStatement preparedStatement = null; 
 	private static Date date = new Date();
 
+	public static int createRandomIntBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
+    }
+
+    public static LocalDate createRandomDate(int startYear, int endYear) {
+        int day = createRandomIntBetween(1, 28);
+        int month = createRandomIntBetween(1, 12);
+        int year = createRandomIntBetween(startYear, endYear);
+        return LocalDate.of(year, month, day);
+    }
+	
 	public static void CreateTriggerForItem(String userID) {
 		try {
 			date = new java.sql.Date(date.getTime()); 
@@ -186,7 +198,7 @@ public class IntializeData {
 					"user_id ) values(?,?,?,?,?)");
 			preparedStatement.setString(1, "Sony Head-Phone");
 			preparedStatement.setString(2, "Brand New Head-Phone");
-			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2000, 2018)) );
 			preparedStatement.setDouble(4, 99);
 			preparedStatement.setString(5, "1");
 			preparedStatement.executeUpdate();
@@ -455,12 +467,13 @@ public class IntializeData {
 			statement.executeUpdate("DROP TABLE IF EXISTS `projectdb`.`category_item`");
 			statement.executeUpdate("DROP TABLE IF EXISTS USERS");
 			statement.executeUpdate("DROP TABLE IF EXISTS REVIEW");
+			statement.executeUpdate("DROP TABLE IF EXISTS favorite_item");
 			statement.executeUpdate("DROP TABLE IF EXISTS REVIEW_ITEM");
 			statement.executeUpdate("DROP TABLE IF EXISTS favorite_seller");
 			statement.executeUpdate("DROP procedure IF EXISTS add_review_SP");
 			statement.executeUpdate("DROP function IF EXISTS is_review_valid");
 			statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 1");
-			
+						
 			String Users = "CREATE TABLE IF NOT EXISTS `projectdb`.`users` (\r\n" + 
 					"  `UserID` VARCHAR(30) NOT NULL,\r\n" + 
 					"  `PASS` VARCHAR(30) NOT NULL,\r\n" + 
@@ -487,8 +500,7 @@ public class IntializeData {
 					"    REFERENCES `projectdb`.`users` (`UserID`));";
 			
 			statement.executeUpdate(favorite_seller);
-					
-					
+							
 			String item = "CREATE TABLE IF NOT EXISTS `projectdb`.`item` (\r\n" + 
 					"  `iditem` INT(11) NOT NULL AUTO_INCREMENT,\r\n" + 
 					"  `title` VARCHAR(45) NOT NULL,\r\n" + 
@@ -553,6 +565,7 @@ public class IntializeData {
 					"    REFERENCES `projectdb`.`users` (`UserID`));";
 			
 			statement.executeUpdate(review_item);
+			
 			String Add_Item = "CREATE TABLE IF NOT EXISTS `projectdb`.`item` (\r\n" + 
 					"  `iditem` INT(11) NOT NULL AUTO_INCREMENT,\r\n" +
 					"  `title` VARCHAR(30) NOT NULL,\r\n" + 
@@ -564,6 +577,20 @@ public class IntializeData {
 					
 			statement.executeUpdate(Add_Item);
 			
+			String favorite_item = "CREATE TABLE IF NOT EXISTS `projectdb`.`favorite_item` (\r\n" + 
+			"  `item_fav_by_user` VARCHAR(30) NOT NULL,\r\n" + 
+			"  `item_PK` INT(11) NOT NULL,\r\n" + 
+			"  INDEX `user_FI_FK_idx` (`item_fav_by_user` ASC) VISIBLE,\r\n" + 
+			"  INDEX `item_PK_FK_idx` (`item_PK` ASC) VISIBLE,\r\n" + 
+			"  CONSTRAINT `item_PK_FK`\r\n" + 
+			"    FOREIGN KEY (`item_PK`)\r\n" + 
+			"    REFERENCES `projectdb`.`item` (`iditem`),\r\n" + 
+			"  CONSTRAINT `user_FI_FK`\r\n" + 
+			"    FOREIGN KEY (`item_fav_by_user`)\r\n" + 
+			"    REFERENCES `projectdb`.`users` (`UserID`))";
+			
+			statement.executeUpdate(favorite_item);
+
 			AddDataToCategory();
 			AddDataToUser();
 			AddDataToReview();
