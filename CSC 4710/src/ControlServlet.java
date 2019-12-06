@@ -95,6 +95,10 @@ public class ControlServlet extends HttpServlet {
         		favItemList(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/addCart":
+        		AddtoCart(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
         		
         	case "/part_4":
         		part_4DB(request, response);
@@ -128,11 +132,39 @@ public class ControlServlet extends HttpServlet {
         		part_2DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/part_10":
+        		part_10DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+
         	}
         } catch (SQLException ex) {
         throw new ServletException(ex);
     }
 }
+    private void AddtoCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+    	itemID = Integer.parseInt(request.getParameter("itemID"));
+    	shoppingCart.addItemCart(LogInUserData.getUserID(), itemID);
+    	
+		List<Item> listItem = shoppingCart.CartItem(shoppingCart.CartItemID()); 
+		request.setAttribute("listItem", listItem);
+		request.setAttribute("result", "success");
+    	
+        RequestDispatcher dispatcher = request.getRequestDispatcher("shoppingCart.jsp");
+        dispatcher.forward(request, response);
+    }
+    
+    private void part_10DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part10_DB.part10();
+    	List<User> userList = part10_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_10.jsp");       
+		dispatcher.forward(request, response);
+    	}
+    
     private void part_6DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	List<String> list = part6_DB.part6();

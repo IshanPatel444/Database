@@ -1098,6 +1098,7 @@ public class IntializeData {
 			
 			statement = connect.createStatement();
 			statement.executeUpdate("SET FOREIGN_KEY_CHECKS = 0");
+			statement.executeUpdate("DROP TABLE IF EXISTS shopping_cart");
 			statement.executeUpdate("DROP TABLE IF EXISTS item");
 			statement.executeUpdate("DROP TABLE IF EXISTS `projectdb`.`category`");
 			statement.executeUpdate("DROP TABLE IF EXISTS `projectdb`.`category_item`");
@@ -1226,6 +1227,20 @@ public class IntializeData {
 			"    REFERENCES `projectdb`.`users` (`UserID`))";
 			
 			statement.executeUpdate(favorite_item);
+
+			String shopping_cart = "CREATE TABLE IF NOT EXISTS `projectdb`.`shopping_cart` (\r\n" + 
+					"  `id_user` VARCHAR(50) NULL DEFAULT NULL,\r\n" + 
+					"  `id_item` INT(11) NULL DEFAULT NULL,\r\n" + 
+					"  INDEX `item_ID_SC_idx` (`id_item` ASC) VISIBLE,\r\n" + 
+					"  INDEX `user_ID_SC_idx` (`id_user` ASC) VISIBLE,\r\n" + 
+					"  CONSTRAINT `item_ID_SC`\r\n" + 
+					"    FOREIGN KEY (`id_item`)\r\n" + 
+					"    REFERENCES `projectdb`.`item` (`iditem`),\r\n" + 
+					"  CONSTRAINT `user_ID_SC`\r\n" + 
+					"    FOREIGN KEY (`id_user`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`))";
+
+			statement.executeUpdate(shopping_cart);
 
 			AddDataToCategory();
 			AddDataToUser();

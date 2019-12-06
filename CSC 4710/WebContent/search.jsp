@@ -71,6 +71,7 @@
 							<th scope="col">Item listed in Categories</th>
 							<th scope="col"> Review </th>
 							<th scope="col"> Favourite </th>
+							<th scope="col"> Add to Cart </th>
 						</tr>
 					</thead>
 					<tbody>
@@ -98,6 +99,14 @@
 										if(message=='true')
 											document.getElementById(${post.getIditem()} ).checked = true;
 									</script>
+									</td>
+									<td>
+									<form action = "addCart" method="post">
+												<div class="form-group col-xs-6">
+						<button type="submit" name= "itemID" class="btn" value="${post.getIditem()}"
+							style="width: 100%;">Add to Cart</button>
+							</div>
+							</form>
 									</td>
 				</tr>
 			</c:forEach>

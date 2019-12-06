@@ -10,8 +10,17 @@ public class Item {
 	protected Double price;
 	protected String user_id;
 	protected boolean isFav = false;
+	protected boolean isCart = false;
 	protected List<String> categoryList;
 	
+	public boolean isCart() {
+		return isCart;
+	}
+
+	public void setCart(boolean isCart) {
+		this.isCart = isCart;
+	}
+
 	public String getCategoryList() {
 		StringBuilder str = new StringBuilder();
 		categoryList.forEach((temp) -> {
