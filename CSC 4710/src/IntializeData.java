@@ -143,18 +143,18 @@ public class IntializeData {
 					"                                in review_rating varchar (10),\r\n" + 
 					"                                out result int)\r\n" + 
 					"BEGIN\r\n" + 
-					"SET @ownerID = 0;\r\n" + 
-					"SELECT user_id into @ownerID FROM projectdb.item where iditem = item_id;\r\n" + 
+					"DECLARE Var1ForSet varchar(50);\r\n" + 
+					"SET @Var1ForSet = (SELECT it.user_id FROM projectdb.item it where iditem = item_id);\r\n" + 
 					"\r\n" + 
 					"	if (projectdb.is_review_valid(item_id) <> user_id) then\r\n" + 
 					"		INSERT INTO `projectdb`.`review_item`\r\n" + 
 					"				( `post_date`, `user_id`, `item_id`, `review_description`, `review_rating`, `item_owner_id`)\r\n" + 
 					"			VALUES\r\n" + 
-					"				(post_date, user_id, item_id, review_description, review_rating, @ownerID);\r\n" + 
+					"				(post_date, user_id, item_id, review_description, review_rating, @Var1ForSet );\r\n" + 
 					"		set result = 1;\r\n" + 
 					"	else \r\n" + 
 					"		set result = 0;\r\n" + 
-					"	end if;\r\n" + 
+					"	end if; "+
 					"END";
 
 			statement.executeUpdate(function);
