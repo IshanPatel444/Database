@@ -101,7 +101,7 @@ public class ControlServlet extends HttpServlet {
             	System.out.println("Updated Fav List");
         		break;
         	case "/part_6":
-//        		part_6DB(request, response);
+        		part_6DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
         	case "/part_7":
@@ -114,6 +114,10 @@ public class ControlServlet extends HttpServlet {
         		break;
         	case "/part_9":
         		part_9DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        	case "/part_5":
+        		part_5DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
         	case "/part_3":
@@ -129,6 +133,26 @@ public class ControlServlet extends HttpServlet {
         throw new ServletException(ex);
     }
 }
+    private void part_6DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part6_DB.part6();
+    	List<User> userList = part6_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		dispatcher.forward(request, response);
+    	}
+    
+    private void part_5DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part5_DB.part5(request.getParameter("userX"),request.getParameter("userY"));
+    	List<User> userList = part5_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_5.jsp");       
+		dispatcher.forward(request, response);
+    	}
+
     private void part_2DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	List<Integer> list = part2_DB.part2();

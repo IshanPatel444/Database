@@ -6,45 +6,40 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class part6_DB {
+public class part5_DB {
 	private static Connection connect = null;
 	
-	public static List<String> part6() {
+	public static List<String> part5(String x, String y) {
 		List<String> list=new ArrayList<String>();
-		List<String> list1=new ArrayList<String>();
+		List<String> listX=new ArrayList<String>();
+		List<String> listY=new ArrayList<String>();
 		try {
-			String qury = "SELECT user_id FROM projectdb.review_item where review_rating = \"Excellent\" GROUP BY user_id HAVING COUNT(user_id) >= 3 ;";
-			String qury1 = "select distinct(user_id) FROM projectdb.review_item;\r\n";
+			String quryX = "SELECT user_id FROM projectdb.favorite_seller where user_favorite = \"" + x + "\";";
+			String quryY = "SELECT user_id FROM projectdb.favorite_seller where user_favorite = \"" + y + "\";";
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
 	                + "user=john&password=pass1234");
 			
-        	Statement statement =  (Statement) connect.createStatement();
-        	ResultSet result = statement.executeQuery(qury);
+        	Statement statementX =  (Statement) connect.createStatement();
+        	ResultSet resultX = statementX.executeQuery(quryX);
         	
-        	Statement statement1 =  (Statement) connect.createStatement();
-        	ResultSet result1 = statement1.executeQuery(qury1);
+        	Statement statementY =  (Statement) connect.createStatement();
+        	ResultSet resultY = statementY.executeQuery(quryY);
         	
-        	while(result.next()) {
-        		list.add(result.getString("user_id"));
-        	}
-        	
-        	while(result1.next()) {
-        		list1.add(result1.getString("user_id"));
-        	}
-        	
-        	statement.close();
-        	statement1.close();
+        	while(resultY.next())
+        		listY.add(resultY.getString("user_id"));
 
-        	System.out.println(list);
+        	while(resultX.next())
+        		listX.add(resultX.getString("user_id"));
+
 		}catch (Exception e) {
 			System.out.println(e);
 		}
 		
-		list.removeAll(list1);
-		System.out.print("sdfgsdf");
-		return list;
+		listX.retainAll(listY); 
+		
+		return listX;
 	}
 
 	public static List<User> userList(List<String> list){
