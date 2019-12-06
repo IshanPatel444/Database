@@ -568,8 +568,116 @@ public class IntializeData {
 		    preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
 					"values(?,?)");
 			preparedStatement.setString(1, "electronic");
+			preparedStatement.setInt(2, 18);	
+			preparedStatement.executeUpdate();
+			
+			
+			//Favourite Item
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "1");
+			preparedStatement.setInt(2, 19);
+			preparedStatement.executeUpdate();
+           
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "2");
 			preparedStatement.setInt(2, 18);
 			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "3");
+			preparedStatement.setInt(2, 17);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "4");
+			preparedStatement.setInt(2, 16);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "5");
+			preparedStatement.setInt(2, 15);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "6");
+			preparedStatement.setInt(2, 14);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "7");
+			preparedStatement.setInt(2, 13);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "8");
+			preparedStatement.setInt(2, 12);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "9");
+			preparedStatement.setInt(2, 11);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "10");
+			preparedStatement.setInt(2, 10);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "9");
+			preparedStatement.setInt(2, 19);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "8");
+			preparedStatement.setInt(2, 17);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "5");
+			preparedStatement.setInt(2, 18);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "4");
+			preparedStatement.setInt(2, 17);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "3");
+			preparedStatement.setInt(2, 13);
+			preparedStatement.executeUpdate();
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "2");
+			preparedStatement.setInt(2, 18);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into favorite_item	(item_fav_by_user, item_PK)" + 
+					"values(?,?)");
+			preparedStatement.setString(1, "7");
+			preparedStatement.setInt(2, 11);
+			preparedStatement.executeUpdate();
+			
+			
+			
+			
 		}
 		
 		catch (Exception e) {
