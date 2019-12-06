@@ -13,7 +13,7 @@
   <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <style>  <%@include file="/WEB-INF/css/style.css"%></style>
 	<title>
-		Part3_7
+		Part3_9
 	</title>
 </head>
 
@@ -38,7 +38,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-						<form action="part_7" method="post" class="col-12">
+						<form action="part_9" method="post" class="col-12">
 					<input
 						type="submit" class="btn" value="submit">
 				</form>

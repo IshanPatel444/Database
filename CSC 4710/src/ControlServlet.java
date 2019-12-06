@@ -101,7 +101,19 @@ public class ControlServlet extends HttpServlet {
             	System.out.println("Updated Fav List");
         		break;
         	case "/part_6":
-        		part_6DB(request, response);
+//        		part_6DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        	case "/part_7":
+        		part_7DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        	case "/part_8":
+        		part_8DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        	case "/part_9":
+        		part_9DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
         	case "/part_3":
@@ -114,9 +126,34 @@ public class ControlServlet extends HttpServlet {
         throw new ServletException(ex);
     }
 }
-    private void part_6DB(HttpServletRequest request, HttpServletResponse response)
+    private void part_9DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_6.jsp");       
+    	List<String> list = part9_DB.part9();
+    	List<User> userList = part9_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		dispatcher.forward(request, response);
+    	}
+
+    private void part_8DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part8_DB.part8();
+    	List<User> userList = part8_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
+		dispatcher.forward(request, response);
+    	}
+
+    
+    private void part_7DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part7_DB.part7();
+    	List<User> userList = part7_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_7.jsp");       
 		dispatcher.forward(request, response);
     	}
 

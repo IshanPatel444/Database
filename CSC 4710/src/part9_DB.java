@@ -6,32 +6,47 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class part7_DB {
+public class part9_DB {
 	private static Connection connect = null;
 	
-	public static List<String> part7() {
+	public static List<String> part9() {
 		List<String> list=new ArrayList<String>();
+		List<String> list1=new ArrayList<String>();
 		try {
-			String qury = "SELECT UserID\r\n" + 
-					"FROM projectdb.users\r\n" + 
-					"WHERE UserID not in \r\n" + 
-					"      (SELECT distinct(user_id) FROM projectdb.review_item where review_rating = \"poor\" );";
-			
+			String qury = "SELECT distinct(user_id) FROM projectdb.review_item\r\n;";
+			String qury1 = "SELECT distinct(user_id) FROM projectdb.review_item where review_rating = \"poor\";";
+					
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
 	                + "user=john&password=pass1234");
 			
         	Statement statement =  (Statement) connect.createStatement();
         	ResultSet result = statement.executeQuery(qury);
+
+        	Statement statement1 =  (Statement) connect.createStatement();
+        	ResultSet result1 = statement1.executeQuery(qury1);
+
         	
         	while(result.next()) {
-        		list.add(result.getString("UserID"));
+        		list.add(result.getString("user_id"));
         	}
         	statement.close();
-        	System.out.println(list);
+        	
+        	while(result1.next()) {
+        		list1.add(result1.getString("user_id"));
+        	}
+        	statement1.close();
+        	
+        	
+        	
 		}catch (Exception e) {
 			System.out.println(e);
 		}
+		
+		for (int i = 0; i < list1.size(); i++) {
+			list.remove(list1.get(i));
+		}
+		
 		return list;
 	}
 
