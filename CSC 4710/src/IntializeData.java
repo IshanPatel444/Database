@@ -136,18 +136,21 @@ public class IntializeData {
 			statement.executeUpdate("DROP procedure IF EXISTS `add_review_SP`");
 
 
-			String function = "CREATE PROCEDURE `add_review_SP`(in post_date date, \r\n" + 
+			String function = "CREATE DEFINER=`john`@`localhost` PROCEDURE `add_review_SP`(in post_date date, \r\n" + 
 					"								in user_id varchar(30),\r\n" + 
 					"                                in item_id int,\r\n" + 
 					"                                in review_description varchar(255),\r\n" + 
 					"                                in review_rating varchar (10),\r\n" + 
 					"                                out result int)\r\n" + 
 					"BEGIN\r\n" + 
+					"SET @ownerID = 0;\r\n" + 
+					"SELECT user_id into @ownerID FROM projectdb.item where iditem = item_id;\r\n" + 
+					"\r\n" + 
 					"	if (projectdb.is_review_valid(item_id) <> user_id) then\r\n" + 
 					"		INSERT INTO `projectdb`.`review_item`\r\n" + 
-					"				( `post_date`, `user_id`, `item_id`, `review_description`, `review_rating`)\r\n" + 
+					"				( `post_date`, `user_id`, `item_id`, `review_description`, `review_rating`, `item_owner_id`)\r\n" + 
 					"			VALUES\r\n" + 
-					"				(post_date, user_id, item_id, review_description, review_rating);\r\n" + 
+					"				(post_date, user_id, item_id, review_description, review_rating, @ownerID);\r\n" + 
 					"		set result = 1;\r\n" + 
 					"	else \r\n" + 
 					"		set result = 0;\r\n" + 
@@ -1197,13 +1200,18 @@ public class IntializeData {
 					"  `item_id` INT(11) NOT NULL,\r\n" + 
 					"  `review_description` VARCHAR(255) NOT NULL,\r\n" + 
 					"  `review_rating` VARCHAR(30) NOT NULL,\r\n" + 
+					"  `item_owner_id` VARCHAR(30) NULL DEFAULT NULL,\r\n" + 
 					"  PRIMARY KEY (`id_review_item`),\r\n" + 
 					"  INDEX `user_id_idx` (`user_id` ASC) VISIBLE,\r\n" + 
 					"  INDEX `item_id_idx` (`item_id` ASC) VISIBLE,\r\n" + 
 					"  INDEX `review_rating_idx` (`review_rating` ASC) VISIBLE,\r\n" + 
+					"  INDEX `item_owner_id_idx` (`item_owner_id` ASC) VISIBLE,\r\n" + 
 					"  CONSTRAINT `item_id_REVIEW_ITEM`\r\n" + 
 					"    FOREIGN KEY (`item_id`)\r\n" + 
 					"    REFERENCES `projectdb`.`item` (`iditem`),\r\n" + 
+					"  CONSTRAINT `item_owner_id`\r\n" + 
+					"    FOREIGN KEY (`item_owner_id`)\r\n" + 
+					"    REFERENCES `projectdb`.`users` (`UserID`),\r\n" + 
 					"  CONSTRAINT `review_rating_REVIEW_ITEM`\r\n" + 
 					"    FOREIGN KEY (`review_rating`)\r\n" + 
 					"    REFERENCES `projectdb`.`review` (`review_rating`),\r\n" + 

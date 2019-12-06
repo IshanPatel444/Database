@@ -13,7 +13,7 @@ public class part3_DB {
 	public static List<Item> part3(String Search) {
 		ArrayList<Item> listItem = new ArrayList<Item>();
 		try {
-			String qury = "SELECT item_id FROM projectdb.review_item where user_id = "+ Search + " and (review_rating = \"Excellent\" or review_rating = \"good\");";
+			String qury = "SELECT distinct(item_id) FROM projectdb.review_item where item_owner_id = "+ Search + " and (review_rating = \"Excellent\" or review_rating = \"good\");";
 			System.out.print(qury);
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
