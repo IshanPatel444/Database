@@ -955,15 +955,7 @@ public class IntializeData {
 	
 	public static void AddDataToUser() {
 		try {
-			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
-			preparedStatement.setString(1,"root");
-			preparedStatement.setString(2,"pass1234");
-			preparedStatement.setString(3,"Admin");
-			preparedStatement.setString(4,"Root");
-			preparedStatement.setString(5,"admin@admin.com");
-			preparedStatement.setInt(6, 22);
-			preparedStatement.setString(7,"m");
-			preparedStatement.executeUpdate();
+			
 			
 			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1,"1");
@@ -1132,7 +1124,9 @@ public class IntializeData {
 					"  `Email` VARCHAR(30) NOT NULL,\r\n" + 
 					"  `gender` VARCHAR(20) NOT NULL,\r\n" + 
 					"  `age` INT(20) NOT NULL,\r\n" + 
-					"  PRIMARY KEY (`UserID`));";
+					"  PRIMARY KEY (`UserID`),\r\n" + 
+					"  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE,\r\n" + 
+					"  INDEX `email_user_FK_idx` (`Email` ASC) VISIBLE);";
 			
 			statement.executeUpdate(Users);
 			
@@ -1261,11 +1255,21 @@ public class IntializeData {
 			statement.executeUpdate(shopping_cart);
 
 			AddDataToCategory();
-			AddDataToUser();
+//			AddDataToUser();
 			AddDataToReview();
 			CreateFunctionIsReviewValid();
 			CreateProcedureAddReview();
-			AddItem();
+//			AddItem();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"root");
+			preparedStatement.setString(2,"pass1234");
+			preparedStatement.setString(3,"Admin");
+			preparedStatement.setString(4,"Root");
+			preparedStatement.setString(5,"admin@admin.com");
+			preparedStatement.setInt(6, 22);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {
 			System.out.print(e);

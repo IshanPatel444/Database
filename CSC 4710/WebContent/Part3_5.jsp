@@ -56,7 +56,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-						<form action="part_4" method="post" class="col-12">
+						<form action="part_5" method="post" class="col-12">
 					<input
 						type="submit" class="btn" value="submit">
 				</form>
