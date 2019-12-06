@@ -183,73 +183,258 @@ public class IntializeData {
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "Sony Head-Phone");
 			preparedStatement.setString(2, "Brand New Head-Phone");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 99);
 			preparedStatement.setString(5, "1");
+			preparedStatement.setInt(6, 1);
 			preparedStatement.executeUpdate();
 			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "LG LED 13.3 inch. TV");
 			preparedStatement.setString(2, "Used TV");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 499);
 			preparedStatement.setString(5, "2");
+			preparedStatement.setInt(6, 2);
 			preparedStatement.executeUpdate();
 			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, " beats Power-bank");
 			preparedStatement.setString(2, "Brand New Power-Bank in good price.");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 25);
 			preparedStatement.setString(5, "2");
+			preparedStatement.setInt(6, 3);
 			preparedStatement.executeUpdate();
 			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");			
 			preparedStatement.setString(1, "Asus Laptop 16inch.");
 			preparedStatement.setString(2, "Brand New Gamiong Laptop.");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 999);
 			preparedStatement.setString(5, "1");
+			preparedStatement.setInt(6, 4);
 			preparedStatement.executeUpdate();
 			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "HP Spectre");
 			preparedStatement.setString(2, "Used Spectre laptop 13.3 inch.");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 699);
 			preparedStatement.setString(5, "3");
+			preparedStatement.setInt(6, 5);
 			preparedStatement.executeUpdate();
 			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 
 					"price," + 
-					"user_id ) values(?,?,?,?,?)");
+					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "Beats");
 			preparedStatement.setString(2, "pink Head_Phone");
 			preparedStatement.setDate(3, (java.sql.Date) date );
 			preparedStatement.setDouble(4, 129);
 			preparedStatement.setString(5, "2");
+			preparedStatement.setInt(6, 6);
 			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "L.G");
+			preparedStatement.setString(2, "TV");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 234);
+			preparedStatement.setString(5, "3");
+			preparedStatement.setInt(6, 7);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Sony");
+			preparedStatement.setString(2, "PlayBox");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 56);
+			preparedStatement.setString(5, "4");
+			preparedStatement.setInt(6, 8);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "HP");
+			preparedStatement.setString(2, "New Letest Spectre 15.6' inch.");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 899);
+			preparedStatement.setString(5, "5");
+			preparedStatement.setInt(6, 9);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "JBL");
+			preparedStatement.setString(2, "Bluetooth Speeker");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 99);
+			preparedStatement.setString(5, "6");
+			preparedStatement.setInt(6, 10);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "J");
+			preparedStatement.setString(2, "Car Speeker");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 499);
+			preparedStatement.setString(5, "9");
+			preparedStatement.setInt(6, 11);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Google");
+			preparedStatement.setString(2, "Alexa");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 299);
+			preparedStatement.setString(5, "7");
+			preparedStatement.setInt(6, 12);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Apple");
+			preparedStatement.setString(2, "Letest I-Phone 7");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 699);
+			preparedStatement.setString(5, "8");
+			preparedStatement.setInt(6, 13);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Samsung");
+			preparedStatement.setString(2, "Used Note 8");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 499);
+			preparedStatement.setString(5, "9");
+			preparedStatement.setInt(6, 14);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Motorola");
+			preparedStatement.setString(2, "Used Moto 11");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 199);
+			preparedStatement.setString(5, "10");
+			preparedStatement.setInt(6, 15);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Google");
+			preparedStatement.setString(2, "new Phone");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 259);
+			preparedStatement.setString(5, "5");
+			preparedStatement.setInt(6, 16);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Samsung");
+			preparedStatement.setString(2, "New Note-9");
+			preparedStatement.setDate(3, (java.sql.Date) date);
+			preparedStatement.setDouble(4, 799);
+			preparedStatement.setString(5, "7");
+			preparedStatement.setInt(6, 17);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Sony");
+			preparedStatement.setString(2, "used Head-Phone");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 29);
+			preparedStatement.setString(5, "6");
+			preparedStatement.setInt(6, 18);
+			preparedStatement.executeUpdate();
+			
+			preparedStatement = connect.prepareStatement("insert into item(title," + 
+					"description," + 
+					"post_date," + 
+					"price," + 
+					"user_id,iditem ) values(?,?,?,?,?,?)");
+			preparedStatement.setString(1, "Vivo");
+			preparedStatement.setString(2, "New Vivo 9 pro.");
+			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDouble(4, 157);
+			preparedStatement.setString(5, "8");
+			preparedStatement.setInt(6, 19);
+			preparedStatement.executeUpdate();
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			// Category Item
 			preparedStatement = connect.prepareStatement("insert into category_item(category_description, item_ID)" + 
