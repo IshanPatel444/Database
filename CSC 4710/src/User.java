@@ -8,6 +8,14 @@ public class User {
 	private int age;
 	private boolean isChecked;	
 	
+	
+	public User(String userID, String fNAME, String lNAME) {
+		super();
+		UserID = userID;
+		FNAME = fNAME;
+		LNAME = lNAME;
+	}
+
 	@Override
 	public String toString() {
 		return "User [UserID=" + UserID + ", FNAME=" + FNAME + ", LNAME=" + LNAME + ", isChecked=" + isChecked + "]";

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,51 +14,40 @@
   <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <style>  <%@include file="/WEB-INF/css/style.css"%></style>
 	<title>
-		Part3_3
+		Favorite Seller
 	</title>
 </head>
-
 <body>
-	<div class="col-xl-8 main-section">
-		<div class="modal-content">
+
+<div class="modal-dialog text-center">
+	
+		<div class="col-sm-12 main-section">
+			<div class="modal-content">
 			<h1 style="align-self: center; color: #c2fbfe;">Welcome</h1>
-			<form action="part_3" method="post">
-				<div class="row mb-4">
-					<div class="form-group col-md-9">
-						<input placeholder="User Name"
-							class="form-control form-control-underlined" type="search"
-							id="Categories_Search" name="search">
-					</div>
-					<div class="form-group col-md-3">
-						<button type="submit" class="btn" value="Search"
-							style="width: 100%;">Search</button>
-					</div>
-				</div>
-				</form>
+
 				<table class="table table-dark table-hover">
 					<thead>
 						<tr>
-							<th scope="col">Title</th>
-							<th scope="col">Description</th>
-							<th scope="col">Posted Date</th>
-							<th scope="col">Price</th>
-							<th scope="col">Item listed in Categories</th>
+							<th scope="col">Name</th>
 						</tr>
 					</thead>
 					<tbody>
-			<c:forEach items="${listItem}" var="post">
-				<tr>
-					<td>${post.getTitle()}</td>
-					<td>${post.getDescription()}</td>
-					<td>${post.getPost_date()}</td>
-					<td>$ ${post.getPrice()}</td>
-					<td>${post.getCategoryList()}</td>
-				</tr>
-			</c:forEach>
+						<c:forEach items="${userList}" var="favUser">
+							<tr>
+								<td>${favUser.getFullName()}</td>								
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
-      </div>
-    </div> <!-- End of Modal Content -->
+						<form action="part_4" method="post" class="col-12">
+					<input
+						type="submit" class="btn" value="submit">
+				</form>
 		
+				
+				<br>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

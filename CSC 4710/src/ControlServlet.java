@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -94,11 +95,28 @@ public class ControlServlet extends HttpServlet {
         		favItemList(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        	case "/part_4":
+        		part_4DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        		
         	}
         } catch (SQLException ex) {
         throw new ServletException(ex);
     }
 }
+    
+    private void part_4DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<String> list = part4_DB.part4();
+    	List<User> userList = part4_DB.userList(list);
+    	System.out.println(Arrays.toString(userList.toArray()));
+    	request.setAttribute("userList", userList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_4.jsp");       
+		dispatcher.forward(request, response);
+    	}
+    
+    
     private void favItemList(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	String result = "error";
