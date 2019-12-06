@@ -3,6 +3,7 @@ import java.sql.PreparedStatement;
 import java.util.Date;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 /*
  * Servlet implementation class DatabaseServerlet
@@ -14,6 +15,17 @@ public class IntializeData {
 	private static PreparedStatement preparedStatement = null; 
 	private static Date date = new Date();
 
+	public static int createRandomIntBetween(int start, int end) {
+        return start + (int) Math.round(Math.random() * (end - start));
+    }
+
+    public static LocalDate createRandomDate(int startYear, int endYear) {
+        int day = createRandomIntBetween(1, 28);
+        int month = createRandomIntBetween(1, 12);
+        int year = createRandomIntBetween(startYear, endYear);
+        return LocalDate.of(year, month, day);
+    }
+	
 	public static void CreateTriggerForItem(String userID) {
 		try {
 			date = new java.sql.Date(date.getTime()); 
@@ -186,7 +198,7 @@ public class IntializeData {
 					"user_id ) values(?,?,?,?,?)");
 			preparedStatement.setString(1, "Sony Head-Phone");
 			preparedStatement.setString(2, "Brand New Head-Phone");
-			preparedStatement.setDate(3, (java.sql.Date) date );
+			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2000, 2018)) );
 			preparedStatement.setDouble(4, 99);
 			preparedStatement.setString(5, "1");
 			preparedStatement.executeUpdate();
