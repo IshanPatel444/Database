@@ -198,7 +198,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "Sony Head-Phone");
 			preparedStatement.setString(2, "Brand New Head-Phone");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 99);
 			preparedStatement.setString(5, "1");
 			preparedStatement.setInt(6, 1);
@@ -224,8 +225,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, " beats Power-bank");
 			preparedStatement.setString(2, "Brand New Power-Bank in good price.");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-
+//			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 25);
 			preparedStatement.setString(5, "2");
 			preparedStatement.setInt(6, 3);
@@ -252,8 +253,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "HP Spectre");
 			preparedStatement.setString(2, "Used Spectre laptop 13.3 inch.");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-
+		//	preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 699);
 			preparedStatement.setString(5, "3");
 			preparedStatement.setInt(6, 5);
@@ -279,7 +280,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "L.G");
 			preparedStatement.setString(2, "TV");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
 			preparedStatement.setDouble(4, 234);
 			preparedStatement.setString(5, "3");
 			preparedStatement.setInt(6, 7);
@@ -305,7 +307,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "HP");
 			preparedStatement.setString(2, "New Letest Spectre 15.6' inch.");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
 			preparedStatement.setDouble(4, 899);
 			preparedStatement.setString(5, "5");
 			preparedStatement.setInt(6, 9);
@@ -331,7 +334,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "J");
 			preparedStatement.setString(2, "Car Speeker");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 499);
 			preparedStatement.setString(5, "9");
 			preparedStatement.setInt(6, 11);
@@ -358,7 +362,8 @@ public class IntializeData {
 					"user_id,iditem ) values(?,?,?,?,?,?)");
 			preparedStatement.setString(1, "Apple");
 			preparedStatement.setString(2, "Letest I-Phone 7");
-			preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			//preparedStatement.setDate(3, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			preparedStatement.setDate(3, (java.sql.Date) date);
 			preparedStatement.setDouble(4, 699);
 			preparedStatement.setString(5, "8");
 			preparedStatement.setInt(6, 13);
