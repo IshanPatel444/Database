@@ -24,7 +24,7 @@
 			<form action="part_3" method="post">
 				<div class="row mb-4">
 					<div class="form-group col-md-9">
-						<input placeholder="User Name"
+						<input placeholder="User ID"
 							class="form-control form-control-underlined" type="search"
 							id="Categories_Search" name="search">
 					</div>

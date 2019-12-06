@@ -95,8 +95,13 @@ public class ControlServlet extends HttpServlet {
         		favItemList(request, response);
             	System.out.println("Updated Fav List");
         		break;
+        		
         	case "/part_4":
         		part_4DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
+        	case "/part_3":
+        		part_3DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
         		
@@ -105,6 +110,15 @@ public class ControlServlet extends HttpServlet {
         throw new ServletException(ex);
     }
 }
+    private void part_3DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	String search = request.getParameter("search");
+    	List<Item> listItem = part3_DB.part3(search);
+		request.setAttribute("listItem", listItem);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_3.jsp");       
+		dispatcher.forward(request, response);
+    	}
+
     
     private void part_4DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
@@ -115,7 +129,6 @@ public class ControlServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_4.jsp");       
 		dispatcher.forward(request, response);
     	}
-    
     
     private void favItemList(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
