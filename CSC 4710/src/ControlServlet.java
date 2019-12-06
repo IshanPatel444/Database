@@ -120,12 +120,25 @@ public class ControlServlet extends HttpServlet {
         		part_3DB(request, response);
             	System.out.println("Updated Fav List");
         		break;
-        		
+        	case "/part_2":
+        		part_2DB(request, response);
+            	System.out.println("Updated Fav List");
+        		break;
         	}
         } catch (SQLException ex) {
         throw new ServletException(ex);
     }
 }
+    private void part_2DB(HttpServletRequest request, HttpServletResponse response)
+    		throws SQLException, IOException, ServletException {
+    	List<Integer> list = part2_DB.part2();
+    	List<Item> itemList = part2_DB.itemList(list);
+    	System.out.println(Arrays.toString(itemList.toArray()));
+    	request.setAttribute("itemList", itemList);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_2.jsp");       
+		dispatcher.forward(request, response);
+    	}
+    
     private void part_9DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
     	List<String> list = part9_DB.part9();
