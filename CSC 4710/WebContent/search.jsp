@@ -96,10 +96,9 @@
 										type="text/javascript">
 										var message = '<c:out value="${post.isFav() }"/>';
 										if(message=='true')
-											document.getElementById(${post.getIditem()}).checked = true;
+											document.getElementById(${post.getIditem()} ).checked = true;
 									</script>
 									</td>
-					<td>${post.isFav() }</td>
 				</tr>
 			</c:forEach>
 					</tbody>
