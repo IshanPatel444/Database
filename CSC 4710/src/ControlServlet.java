@@ -137,7 +137,7 @@ public class ControlServlet extends HttpServlet {
             	System.out.println("Updated Fav List");
         		break;
         	case "/removeItemCart":
-        		part_10DB(request, response);
+        		removeItemCart(request, response);
             	System.out.println("Updated Fav List");
         		break;
 
@@ -146,6 +146,19 @@ public class ControlServlet extends HttpServlet {
         throw new ServletException(ex);
     }
 }
+    private void removeItemCart(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException {
+    	itemID = Integer.parseInt(request.getParameter("itemID"));
+    	shoppingCart.addItemCart(LogInUserData.getUserID(), itemID);
+    	
+		List<Item> listItem = shoppingCart.CartItem(shoppingCart.CartItemID()); 
+		request.setAttribute("listItem", listItem);
+		request.setAttribute("result", "success");
+    	
+        RequestDispatcher dispatcher = request.getRequestDispatcher("shoppingCart.jsp");
+        dispatcher.forward(request, response);
+    }
+    
     private void AddtoCart(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
     	itemID = Integer.parseInt(request.getParameter("itemID"));
