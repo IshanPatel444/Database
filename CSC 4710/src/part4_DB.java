@@ -12,7 +12,7 @@ public class part4_DB {
 	public static List<String> part4() {
 		List<String> list=new ArrayList<String>();
 		try {
-			String qury = "SELECT user_id, COUNT(`user_id`) AS value_occurrence FROM projectdb.item GROUP BY user_id ORDER BY value_occurrence DESC LIMIT 1;";
+			String qury = "SELECT user_id, COUNT(`user_id`) AS value_occurrence FROM projectdb.item GROUP BY user_id ORDER BY value_occurrence DESC;";
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
@@ -20,9 +20,14 @@ public class part4_DB {
 			
         	Statement statement =  (Statement) connect.createStatement();
         	ResultSet result = statement.executeQuery(qury);
+        	int x = 0;
         	
         	while(result.next()) {
-        		list.add(result.getString("user_id"));
+        		if (x <= result.getInt("value_occurrence")) {
+        			x = result.getInt("value_occurrence");
+            		list.add(result.getString("user_id"));
+
+        		}
         	}
         	statement.close();
         	System.out.println(list);

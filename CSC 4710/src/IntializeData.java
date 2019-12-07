@@ -146,18 +146,18 @@ public class IntializeData {
 					"                                in review_rating varchar (10),\r\n" + 
 					"                                out result int)\r\n" + 
 					"BEGIN\r\n" + 
-					"SET @ownerID = 0;\r\n" + 
-					"SELECT user_id into @ownerID FROM projectdb.item where iditem = item_id;\r\n" + 
+					"DECLARE Var1ForSet varchar(50);\r\n" + 
+					"SET @Var1ForSet = (SELECT it.user_id FROM projectdb.item it where iditem = item_id);\r\n" + 
 					"\r\n" + 
 					"	if (projectdb.is_review_valid(item_id) <> user_id) then\r\n" + 
 					"		INSERT INTO `projectdb`.`review_item`\r\n" + 
 					"				( `post_date`, `user_id`, `item_id`, `review_description`, `review_rating`, `item_owner_id`)\r\n" + 
 					"			VALUES\r\n" + 
-					"				(post_date, user_id, item_id, review_description, review_rating, @ownerID);\r\n" + 
+					"				(post_date, user_id, item_id, review_description, review_rating, @Var1ForSet );\r\n" + 
 					"		set result = 1;\r\n" + 
 					"	else \r\n" + 
 					"		set result = 0;\r\n" + 
-					"	end if;\r\n" + 
+					"	end if; "+
 					"END";
 
 			statement.executeUpdate(function);
@@ -925,15 +925,7 @@ public class IntializeData {
 	
 	public static void AddDataToUser() {
 		try {
-			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
-			preparedStatement.setString(1,"root");
-			preparedStatement.setString(2,"pass1234");
-			preparedStatement.setString(3,"Admin");
-			preparedStatement.setString(4,"Root");
-			preparedStatement.setString(5,"admin@admin.com");
-			preparedStatement.setInt(6, 22);
-			preparedStatement.setString(7,"m");
-			preparedStatement.executeUpdate();
+			
 			
 			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1,"1");
@@ -1102,7 +1094,9 @@ public class IntializeData {
 					"  `Email` VARCHAR(30) NOT NULL,\r\n" + 
 					"  `gender` VARCHAR(20) NOT NULL,\r\n" + 
 					"  `age` INT(20) NOT NULL,\r\n" + 
-					"  PRIMARY KEY (`UserID`));";
+					"  PRIMARY KEY (`UserID`),\r\n" + 
+					"  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) VISIBLE,\r\n" + 
+					"  INDEX `email_user_FK_idx` (`Email` ASC) VISIBLE);";
 			
 			statement.executeUpdate(Users);
 			
@@ -1231,11 +1225,21 @@ public class IntializeData {
 			statement.executeUpdate(shopping_cart);
 
 			AddDataToCategory();
-			AddDataToUser();
+//			AddDataToUser();
 			AddDataToReview();
 			CreateFunctionIsReviewValid();
 			CreateProcedureAddReview();
-			AddItem();
+//			AddItem();
+			
+			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1,"root");
+			preparedStatement.setString(2,"pass1234");
+			preparedStatement.setString(3,"Admin");
+			preparedStatement.setString(4,"Root");
+			preparedStatement.setString(5,"admin@admin.com");
+			preparedStatement.setInt(6, 22);
+			preparedStatement.setString(7,"m");
+			preparedStatement.executeUpdate();
 			
 		} catch (Exception e) {
 			System.out.print(e);

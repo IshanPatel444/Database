@@ -42,12 +42,8 @@ public class part9_DB {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
-		
-		for (int i = 0; i < list1.size(); i++) {
-			list.remove(list1.get(i));
-		}
-		
-		return list;
+				
+		return list1;
 	}
 
 	public static List<User> userList(List<String> list){
