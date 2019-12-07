@@ -12,8 +12,8 @@ public class part6_DB {
 		List<String> list=new ArrayList<String>();
 		List<String> list1=new ArrayList<String>();
 		try {
-			String qury = "SELECT item_owner_id FROM projectdb.review_item where review_rating = \"Excellent\" GROUP BY user_id HAVING COUNT(user_id) >= 3 ;";
-			String qury1 = "select distinct(item_owner_id) FROM projectdb.item;\r\n";
+			String qury = "SELECT item_owner_id FROM projectdb.review_item where review_rating = \"Excellent\" GROUP BY item_owner_id HAVING COUNT(item_owner_id) >= 3 ;";
+			String qury1 = "select distinct(user_id) FROM projectdb.item;\r\n";
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
@@ -30,7 +30,7 @@ public class part6_DB {
 			}
 
 			while(result1.next()) {
-				list1.add(result1.getString("item_owner_id"));
+				list1.add(result1.getString("user_id"));
 			}
 
 			statement.close();
