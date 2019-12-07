@@ -19,6 +19,8 @@ public class AddItemData {
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
 					+ "user=john&password=pass1234");
 
+			String sql = "";
+			
 			preparedStatement = connect.prepareStatement("insert into item(title," + 
 					"description," + 
 					"post_date," + 

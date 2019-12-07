@@ -13,8 +13,8 @@ public class part9_DB {
 		List<String> list=new ArrayList<String>();
 		List<String> list1=new ArrayList<String>();
 		try {
-			String qury = "SELECT distinct(user_id) FROM projectdb.review_item\r\n;";
-			String qury1 = "SELECT distinct(user_id) FROM projectdb.review_item where review_rating = \"poor\";";
+			String qury = "SELECT distinct(item_owner_id) FROM projectdb.review_item\r\n;";
+			String qury1 = "SELECT distinct(item_owner_id) FROM projectdb.review_item where review_rating = \"poor\";";
 					
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
@@ -28,12 +28,12 @@ public class part9_DB {
 
         	
         	while(result.next()) {
-        		list.add(result.getString("user_id"));
+        		list.add(result.getString("item_owner_id"));
         	}
         	statement.close();
         	
         	while(result1.next()) {
-        		list1.add(result1.getString("user_id"));
+        		list1.add(result1.getString("item_owner_id"));
         	}
         	statement1.close();
         	
