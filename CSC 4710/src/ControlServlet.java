@@ -194,11 +194,16 @@ public class ControlServlet extends HttpServlet {
     
     private void part_5DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
+    	
+		List<User> AllUserID = FavSellerData.SellerList();
+		
     	List<String> list = part5_DB.part5(request.getParameter("userX"),request.getParameter("userY"));
     	List<User> userList = part5_DB.userList(list);
     	System.out.println(Arrays.toString(userList.toArray()));
+    	
     	request.setAttribute("userList", userList);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_5.jsp");       
+    	request.setAttribute("AllUserID", AllUserID);
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_5.jsp");       
 		dispatcher.forward(request, response);
     	}
 
@@ -424,8 +429,6 @@ public class ControlServlet extends HttpServlet {
 		String description = request.getParameter("description");
 		String price = request.getParameter("price");
 		String categories[] = request.getParameterValues("ck_category");
-		
-		System.out.print(categories.toString());
 		
 		if(AddItemData.AddItemDB(title, description, Double.valueOf(price))) {
 			AddItemCategoryData.AddItemCategoryDB(title, categories);

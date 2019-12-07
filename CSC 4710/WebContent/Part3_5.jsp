@@ -19,14 +19,13 @@
 </head>
 <body>
 
-<div class="modal-dialog text-center">
-	
+<div class="modal-dialog text-center">	
 		<div class="col-sm-12 main-section">
 			<div class="modal-content">
 			<h1 style="align-self: center; color: #c2fbfe;">Welcome</h1>
 <form action="part_5" method="post" class="col-12">
 				<div class="row mb-4">
-					<div class="form-group col-md-9">
+					<div class="form-group col-md-9">					
 						<input placeholder="User X"
 							class="form-control form-control-underlined" type="search"
 							id="userX" name="userX">
