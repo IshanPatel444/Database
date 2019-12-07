@@ -42,8 +42,14 @@ public class part9_DB {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
+		
+		List<String> union = new ArrayList<String>(list1);
+		union.addAll(list);
+		List<String> intersection = new ArrayList<String>(list1);
+		intersection.retainAll(list);
+		union.removeAll(intersection);
 				
-		return list1;
+		return union;
 	}
 
 	public static List<User> userList(List<String> list){
