@@ -1,6 +1,9 @@
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Date;
+
+import com.mysql.cj.jdbc.CallableStatement;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -762,179 +765,146 @@ public class IntializeData {
 			
 			
 			// Review.
+			/*
+			 * 1, DATE
+			 * 2, USERID
+			 * 3,ITEMID
+			 */
 			
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 1);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "9");
-			preparedStatement.setInt(4, 13);
-			preparedStatement.setString(5, "Excellant Item");
-			preparedStatement.setString(6, "Good");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 11);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "8");
-			preparedStatement.setInt(4, 14);
-			preparedStatement.setString(5, "I like this Your Item");
-			preparedStatement.setString(6, "Good");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 12);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "4");
-			preparedStatement.setInt(4, 11);
-			preparedStatement.setString(5, "Bad Product");
-			preparedStatement.setString(6, "Poor");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 13);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "1");
-			preparedStatement.setInt(4, 16);
-			preparedStatement.setString(5, "This Item is ok.");
-			preparedStatement.setString(6, "Fair");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 14);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "2");
-			preparedStatement.setInt(4, 17);
-			preparedStatement.setString(5, "Please do not add fake Items.");
-			preparedStatement.setString(6, "Poor");
-			preparedStatement.executeUpdate();
-			
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 15);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "3");
-			preparedStatement.setInt(4, 18);
-			preparedStatement.setString(5, "Nice Product.");
-			preparedStatement.setString(6, "Good");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 16);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "4");
-			preparedStatement.setInt(4, 19);
-			preparedStatement.setString(5, "Poor sellar.");
-			preparedStatement.setString(6, "Poor");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 17);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "5");
-			preparedStatement.setInt(4, 7);
-			preparedStatement.setString(5, "It is ok.");
-			preparedStatement.setString(6, "Fair");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 18);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "6");
-			preparedStatement.setInt(4, 9);
-			preparedStatement.setString(5, "Excellant Item.");
-			preparedStatement.setString(6, "Good");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 2);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "9");
-			preparedStatement.setInt(4, 1);
-			preparedStatement.setString(5, "Don't like");
-			preparedStatement.setString(6, "Poor");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 7);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "8");
-			preparedStatement.setInt(4, 3);
-			preparedStatement.setString(5, "Excellant.");
-			preparedStatement.setString(6, "Good");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 5);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "3");
-			preparedStatement.setInt(4, 15);
-			preparedStatement.setString(5, "Like it but not that much!");
-			preparedStatement.setString(6, "Fair");
-			preparedStatement.executeUpdate();
-			
-			preparedStatement = connect.prepareStatement("insert into review_item(id_review_item," + 
-					"post_date," + 
-					"user_id," + 
-					"item_id," + 
-					"review_description,review_rating ) values(?,?,?,?,?,?)");
-			preparedStatement.setInt(1, 4);
-			preparedStatement.setDate(2, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
-			preparedStatement.setString(3, "6");
-			preparedStatement.setInt(4, 5);
-			preparedStatement.setString(5, "Excellant.");
-			preparedStatement.setString(6, "Excellent");
-			preparedStatement.executeUpdate();
-			
-			
+			String add_review = "{call projectdb.add_review_SP(?,?,?,?,?,?)}";
+    		CallableStatement callableStatement = (CallableStatement) connect.prepareCall(add_review);
+    		
+    		callableStatement.setDate(1, java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+    		callableStatement.setString(2, "1");
+    		callableStatement.setInt(3, 13);
+    		callableStatement.setString(4, "Excellant Item");
+    		callableStatement.setString(5, "Good");
+    		callableStatement.registerOutParameter(6, java.sql.Types.INTEGER);
+    		callableStatement.executeUpdate();
+						
+			/*
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 11); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "8"); preparedStatement.setInt(4, 14);
+			 * preparedStatement.setString(5, "I like this Your Item");
+			 * preparedStatement.setString(6, "Good"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 12); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "4"); preparedStatement.setInt(4, 11);
+			 * preparedStatement.setString(5, "Bad Product"); preparedStatement.setString(6,
+			 * "Poor"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 13); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "1"); preparedStatement.setInt(4, 16);
+			 * preparedStatement.setString(5, "This Item is ok.");
+			 * preparedStatement.setString(6, "Fair"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 14); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "2"); preparedStatement.setInt(4, 17);
+			 * preparedStatement.setString(5, "Please do not add fake Items.");
+			 * preparedStatement.setString(6, "Poor"); preparedStatement.executeUpdate();
+			 * 
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 15); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "3"); preparedStatement.setInt(4, 18);
+			 * preparedStatement.setString(5, "Nice Product.");
+			 * preparedStatement.setString(6, "Good"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 16); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "4"); preparedStatement.setInt(4, 19);
+			 * preparedStatement.setString(5, "Poor sellar.");
+			 * preparedStatement.setString(6, "Poor"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 17); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "5"); preparedStatement.setInt(4, 7);
+			 * preparedStatement.setString(5, "It is ok."); preparedStatement.setString(6,
+			 * "Fair"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 18); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "6"); preparedStatement.setInt(4, 9);
+			 * preparedStatement.setString(5, "Excellant Item.");
+			 * preparedStatement.setString(6, "Good"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 2); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "9"); preparedStatement.setInt(4, 1);
+			 * preparedStatement.setString(5, "Don't like"); preparedStatement.setString(6,
+			 * "Poor"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 7); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "8"); preparedStatement.setInt(4, 3);
+			 * preparedStatement.setString(5, "Excellant."); preparedStatement.setString(6,
+			 * "Good"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 5); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "3"); preparedStatement.setInt(4, 15);
+			 * preparedStatement.setString(5, "Like it but not that much!");
+			 * preparedStatement.setString(6, "Fair"); preparedStatement.executeUpdate();
+			 * 
+			 * preparedStatement =
+			 * connect.prepareStatement("insert into review_item(id_review_item," +
+			 * "post_date," + "user_id," + "item_id," +
+			 * "review_description,review_rating ) values(?,?,?,?,?,?)");
+			 * preparedStatement.setInt(1, 4); preparedStatement.setDate(2,
+			 * java.sql.Date.valueOf(createRandomDate(2019, 2019)) );
+			 * preparedStatement.setString(3, "6"); preparedStatement.setInt(4, 5);
+			 * preparedStatement.setString(5, "Excellant."); preparedStatement.setString(6,
+			 * "Excellent"); preparedStatement.executeUpdate();
+			 * 
+			 */
 			
 			
 			
