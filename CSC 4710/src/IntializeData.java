@@ -1232,7 +1232,7 @@ public class IntializeData {
 //			AddItem();
 			
 			preparedStatement = connect.prepareStatement("insert into users(UserID, PASS, FNAME, LNAME, Email, age, gender) values(?, ?, ?, ?, ?, ?, ?)");
-			preparedStatement.setString(1,"root");
+			preparedStatement.setString(1,"1000");
 			preparedStatement.setString(2,"pass1234");
 			preparedStatement.setString(3,"Admin");
 			preparedStatement.setString(4,"Root");
