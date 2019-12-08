@@ -98,6 +98,35 @@ public class part10_DB {
 		Stream.of(finalUserList.toString())
 		.forEach(System.out::println);
 		
+		
+		List<Tuple<String, List<String>> > ListItem =new ArrayList<Tuple<String, List<String>>>();
+		for (int i = 0; i<finalUserList.size(); i++)
+		{	
+			List<String> userList = new ArrayList<String>();
+			try {
+				String qury = "SELECT user_id FROM projectdb.review_item where item_owner_id = \"" + finalUserList.get(i) +"\" and review_rating = \"Excellent\";";
+
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+						+ "user=john&password=pass1234");
+
+				Statement statement =  (Statement) connect.createStatement();
+				ResultSet result = statement.executeQuery(qury);
+
+				while(result.next()) {
+					userList.add(result.getString("user_id"));
+				}
+				statement.close();
+
+			}catch (Exception e) {
+				System.out.println(e);
+			}
+			ListItem.add(new Tuple<>(finalUserList.get(i),userList));
+		}
+		
+		Stream.of(ListItem.toString())
+		.forEach(System.out::println);
+
 	}
 
 	public List<User> userList(List<String> list){
