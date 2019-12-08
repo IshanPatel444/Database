@@ -47,6 +47,9 @@ public class part11_DB {
 		
 		Stream.of(finalUser.toString())
 		.forEach(System.out::println);
+
+		if(finalUser.size()%2!=0)
+			finalUser.clear();
 		return finalUser;
 		}
 
@@ -80,7 +83,6 @@ public class part11_DB {
 			System.out.println(e);
 		}
 		return userlist;
-		
 	}
 
 }
