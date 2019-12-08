@@ -24,24 +24,6 @@
 		<div class="col-sm-12 main-section">
 			<div class="modal-content">
 			<h1 style="align-self: center; color: #c2fbfe;">Welcome</h1>
-<form action="part_5" method="post" class="col-12">
-				<div class="row mb-4">
-					<div class="form-group col-md-9">
-						<input placeholder="User X"
-							class="form-control form-control-underlined" type="search"
-							id="userX" name="userX">
-							<input placeholder="UserY"
-							class="form-control form-control-underlined" type="search"
-							id="userY" name="userY">
-					</div>
-					<div class="form-group col-md-3">
-						<button type="submit" class="btn" value="Search"
-							style="width: 100%;">Search</button>
-					</div>
-				</div>
-
-
-				</form>
 				<table class="table table-dark table-hover">
 					<thead>
 						<tr>
@@ -56,12 +38,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
-						<form action="part_10" method="post" class="col-12">
-					<input
-						type="submit" class="btn" value="submit">
+				<form action="part_10" method="post" class="col-12">
+					<input type="submit" class="btn" value="submit">
 				</form>
-		
-				
 				<br>
 			</div>
 		</div>

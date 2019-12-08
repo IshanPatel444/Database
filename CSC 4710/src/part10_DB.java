@@ -1,19 +1,49 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
+class Tuple<A, B> {
+
+    public final A a;
+    public final B b;
+
+    public Tuple(A a, B b) {
+        this.a = a;
+        this.b = b;
+    }
+    
+    public A getA() {
+    	return this.a;
+    }
+
+    @Override
+	public String toString() {
+    	String s = String.format("("+this.a+", "+ this.b+")");
+		return s;
+	}
+
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tuple<?, ?> tuple = (Tuple<?, ?>) o;
+        if (!a.equals(tuple.a)) return false;
+        return b.equals(tuple.b);
+    }
+}
 
 public class part10_DB {
 	private static Connection connect = null;
 	
-	public static List<String> part10() {
-		List<String> list=new ArrayList<String>();
-		List<String> list1=new ArrayList<String>();
+	public static void part10() {
+		List<Tuple<String, Integer> > itemWithExcellent =new ArrayList<Tuple<String, Integer>>();
 		try {
-			String qury = "SELECT distinct(iditem) FROM projectdb.item where user_id in (SELECT distinct(user_id) FROM projectdb.review_item where review_rating = \"Excellent\");";
+			String qury = "SELECT item_owner_id, count(item_owner_id) FROM projectdb.review_item WHERE review_rating = 'Excellent' group by item_id;";
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
@@ -23,23 +53,54 @@ public class part10_DB {
         	ResultSet result = statement.executeQuery(qury);
 
         	while(result.next()) {
-        		qury = "SELECT user_id FROM projectdb.review_item where item_id = " + result.getString("iditem") + " and review_rating = \"Excellent\";";
-        		System.out.println(qury);
+        		itemWithExcellent.add(new Tuple<>(result.getString(1), result.getInt(2)));
         	}
         	statement.close();
         	
 		}catch (Exception e) {
 			System.out.println(e);
-		}
+		}		
 		
-		for (int i = 0; i < list1.size(); i++) {
-			list.remove(list1.get(i));
-		}
+		Stream.of(itemWithExcellent.toString())
+		.forEach(System.out::println);
+
+		List<Tuple<String, Integer> > userItem =new ArrayList<Tuple<String, Integer>>();
+		try {
+			String qury = "SELECT user_id, count(user_id) FROM projectdb.item GROUP BY user_id;";
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://:3306/projectdb?"
+	                + "user=john&password=pass1234");
+			
+        	Statement statement =  (Statement) connect.createStatement();
+        	ResultSet result = statement.executeQuery(qury);
+
+        	while(result.next()) {
+        		userItem.add(new Tuple<>(result.getString("user_id"), result.getInt(2)));
+        	}
+        	statement.close();
+        	
+		}catch (Exception e) {
+			System.out.println(e);
+		}		
 		
-		return list;
+		Stream.of(userItem.toString())
+		.forEach(System.out::println);
+		
+		List<String> finalUserList = new ArrayList<String>();
+		for (int i = 0; i<itemWithExcellent.size(); i++) {
+			for(int j = 0; j< userItem.size(); j++) {
+				if(userItem.get(j).equals(itemWithExcellent.get(i)))
+					finalUserList.add(itemWithExcellent.get(i).getA());
+			}
+		}
+
+		Stream.of(finalUserList.toString())
+		.forEach(System.out::println);
+		
 	}
 
-	public static List<User> userList(List<String> list){
+	public List<User> userList(List<String> list){
 		List<User> userlist=new ArrayList<User>();
 		try {
 			if(list != null)

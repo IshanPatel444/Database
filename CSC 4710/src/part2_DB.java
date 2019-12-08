@@ -45,7 +45,6 @@ public class part2_DB {
             	}
             	statement1.close();
         	}
-        	
         	statement.close();
         	
 		}catch (Exception e) {

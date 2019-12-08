@@ -174,10 +174,13 @@ public class ControlServlet extends HttpServlet {
     
     private void part_10DB(HttpServletRequest request, HttpServletResponse response)
     		throws SQLException, IOException, ServletException {
+    	part10_DB.part10();
+    	/*
     	List<String> list = part10_DB.part10();
     	List<User> userList = part10_DB.userList(list);
     	System.out.println(Arrays.toString(userList.toArray()));
     	request.setAttribute("userList", userList);
+    	*/
 		RequestDispatcher dispatcher = request.getRequestDispatcher("Part3_10.jsp");       
 		dispatcher.forward(request, response);
     	}
